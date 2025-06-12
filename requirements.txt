@@ -1,0 +1,5 @@
+Flask
+mysql-connector-python
+speechrecognition
+pyttsx3
+werkzeug

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Note Keeper</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="container mt-4 animate__animated animate__fadeIn index-page">
+
+  <header class="top-right-header">
+    <a href="/logout" class="btn btn-danger animate__animated animate__fadeInRight animate__delay-2s">Logout</a>
+  </header>
+
+  <h2 class="animate__animated animate__fadeInDown">My Notes 📒✨</h2>
+
+  <form method="POST" action="/add" class="mb-3 animate__animated animate__zoomIn">
+    <input type="text" name="note" class="form-control" placeholder="Type your note..." required>
+    <button type="submit" class="btn btn-primary mt-2 animate__animated animate__bounceIn">Add Note</button>
+  </form>
+
+  <form method="POST" action="/voice" class="animate__animated animate__fadeInLeft animate__delay-1s mt-4">
+    <button type="submit" class="btn btn-warning">🎤 Add Note by Voice</button>
+  </form>
+
+  
+
+  <ul class="list-group mt-4">
+    {% for note in notes %}
+      <li class="list-group-item d-flex justify-content-between align-items-center animate__animated animate__fadeInUp">
+        {{ note.content }}
+        <span>
+          <button type="button" onclick="playNote({{ note.id }})" class="btn btn-sm btn-info me-2 animate__animated animate__pulse animate__delay-1s">🔊</button>
+          <a href="/delete/{{ note.id }}" class="btn btn-sm btn-danger animate__animated animate__bounceIn animate__delay-2s">🗑️</a>
+        </span>
+      </li>
+    {% endfor %}
+  </ul>
+
+<script>
+  function playNote(noteId) {
+    fetch(`/speak/${noteId}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.content) {
+          console.log('Playing note:', data.content);
+          const utterance = new SpeechSynthesisUtterance(data.content);
+          utterance.onstart = () => console.log('Speech started');
+          utterance.onend = () => console.log('Speech ended');
+          utterance.onerror = (e) => console.error('Speech error:', e);
+          window.speechSynthesis.speak(utterance);
+        } else {
+          alert('Note not found or error occurred.');
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching note:', error);
+        alert('Error fetching note.');
+      });
+  }
+</script>
+</body>
+</html>

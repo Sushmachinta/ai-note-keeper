@@ -1,0 +1,78 @@
+body {
+  animation: fadeBody 1s ease-in-out;
+}
+
+@keyframes fadeBody {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-page, .register-page, .index-page {
+  background-color: #d8b4f8; /* light purple */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  display: flex;
+  max-width: 850px;
+  height: 600px;
+  border-radius: 1rem;
+  overflow: visible;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  background: white;
+  position: relative;
+}
+
+.login-logo {
+  position: relative;
+  left: auto;
+  top: auto;
+  bottom: auto;
+  width: 300px;
+  background-image: url('/static/logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 0 1rem 1rem 0;
+  margin-left: 1rem;
+}
+
+.login-form {
+  flex: 1;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 3rem;
+  background-color: white;
+  border-radius: 1rem 0 0 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Override index-page flex centering to allow natural flow */
+.index-page {
+  display: block !important;
+  min-height: auto !important;
+  align-items: unset !important;
+  justify-content: unset !important;
+}
+
+.top-right-header {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+  width: auto;
+}
