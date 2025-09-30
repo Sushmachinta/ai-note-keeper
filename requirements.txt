@@ -3,3 +3,5 @@ mysql-connector-python
 speechrecognition
 pyttsx3
 werkzeug
+pip install gunicorn
+pip freeze > requirements.txt
